@@ -47,6 +47,16 @@ abstract class VoidObservable implements Observable<void> {
   const VoidObservable();
 }
 
+abstract class VoidNotifier implements Notifier<void> {
+  const VoidNotifier();
+
+  void notifyListeners() => notify(null);
+}
+
+abstract class VoidListener implements Notifier<void> {
+  const VoidListener();
+}
+
 /// An [Observable] implementation that silently ignores all operations.
 ///
 /// Useful as a default or placeholder where an [Observable] is required
