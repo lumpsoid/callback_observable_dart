@@ -7,12 +7,16 @@ typedef VoidCallback = Callback<void>;
 /// Defines the ability to notify listeners of a change.
 // ignore: one_member_abstracts
 abstract interface class Notifier<T> {
+  const Notifier();
+
   /// Notifies all registered listeners.
   void notify(T value);
 }
 
 /// Defines the ability to register and unregister [VoidCallback] listeners.
 abstract interface class Listener<T> {
+  const Listener();
+
   /// Registers [listener] to be called on future notifications.
   void addListener(Callback<T> listener);
 
@@ -24,6 +28,8 @@ abstract interface class Listener<T> {
 
 /// Combines [Notifier] and [Listener] into a single observable interface.
 abstract interface class Observable<T> implements Notifier<T>, Listener<T> {
+  const Observable();
+
   bool get isDisposed;
 
   void clean();
@@ -37,7 +43,9 @@ abstract interface class Observable<T> implements Notifier<T>, Listener<T> {
 /// without attaching any accompanying data. It is purely type sugar over
 /// `Observable<void>`, keeping call-sites free of distracting `<void>`
 /// annotations.
-abstract interface class VoidObservable implements Observable<void> {}
+abstract class VoidObservable implements Observable<void> {
+  const VoidObservable();
+}
 
 /// An [Observable] implementation that silently ignores all operations.
 ///
