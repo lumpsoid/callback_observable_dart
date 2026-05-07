@@ -1,6 +1,6 @@
 name: callback_observable
 description: Callback based observable.
-version: 0.1.1+1
+version: 0.1.2+1
 publish_to: none
 
 environment:
