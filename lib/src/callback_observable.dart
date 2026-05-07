@@ -32,7 +32,7 @@ abstract interface class Observable<T> implements Notifier<T>, Listener<T> {
 
   bool get isDisposed;
 
-  void clean();
+  void reset();
 
   void dispose();
 }
@@ -71,7 +71,7 @@ class NoOpObservable implements VoidObservable {
   void notify(void value) {}
 
   @override
-  void clean() {}
+  void reset() {}
 
   @override
   void dispose() {}
@@ -143,7 +143,7 @@ class TombstoneObservable<T> implements Observable<T> {
   /// marking the observable as disposed. Safe to call at any time, including
   /// during an active [notify] cycle (all live entries are tombstoned).
   @override
-  void clean() {
+  void reset() {
     if (_notifyDepth > 0) {
       // Tombstone every live entry; compaction runs when notify unwinds.
       for (var i = 0; i < _listeners.length; i++) {
@@ -167,7 +167,7 @@ class TombstoneObservable<T> implements Observable<T> {
   @override
   void dispose() {
     if (_disposed) return;
-    clean();
+    reset();
     _disposed = true;
   }
 
