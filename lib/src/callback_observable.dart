@@ -57,6 +57,18 @@ abstract class VoidListener implements Notifier<void> {
   const VoidListener();
 }
 
+abstract interface class ObservableValue<T> implements Observable<T> {
+  T get value;
+}
+
+mixin ObservableReplayOnSubscribe<T> on ObservableValue<T> {
+  @override
+  void addListener(Callback<T> listener) {
+    super.addListener(listener);
+    listener(value);
+  }
+}
+
 /// An [Observable] implementation that silently ignores all operations.
 ///
 /// Useful as a default or placeholder where an [Observable] is required
